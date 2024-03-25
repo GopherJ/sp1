@@ -243,7 +243,7 @@ pub fn machine_air_derive(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro_attribute]
-pub fn cycle_tracker(_attr: TokenStream, item: TokenStream) -> TokenStream {
+pub fn fn_tracker(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as ItemFn);
     let visibility = &input.vis;
     let name = &input.sig.ident;
@@ -255,9 +255,9 @@ pub fn cycle_tracker(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let result = quote! {
         #visibility fn #name #generics (#inputs) #output #where_clause {
-            println!("cycle-tracker-start: {}", stringify!(#name));
+            println!("fn-tracker-start: {}", stringify!(#name));
             let result = (|| #block)();
-            println!("cycle-tracker-end: {}", stringify!(#name));
+            println!("fn-tracker-end: {}", stringify!(#name));
             result
         }
     };

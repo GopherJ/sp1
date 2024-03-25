@@ -204,3 +204,13 @@ where
         self.air.hash(state);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn function_name_test() {
+        dbg!(log2_ceil_usize(2));
+    }
+}

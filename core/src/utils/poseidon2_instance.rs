@@ -550,3 +550,38 @@ lazy_static! {
         ]
     ];
 }
+
+#[cfg(test)]
+mod tests {
+
+    use p3_poseidon2::{DiffusionMatrixBabybear, Poseidon2};
+    use p3_symmetric::Permutation;
+
+    use super::*;
+
+    #[test]
+    fn poseidon2_babybear_test() {
+        let perm: Poseidon2<BabyBear, DiffusionMatrixBabybear, 16, 5> =
+            Poseidon2::new(8, 22, RC_16_30.to_vec(), DiffusionMatrixBabybear);
+        dbg!(RC_16_30.to_vec());
+        let state = [
+            BabyBear::from_canonical_u32(121u32),
+            BabyBear::from_canonical_u32(124u32),
+            BabyBear::from_canonical_u32(125u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+            BabyBear::from_canonical_u32(0u32),
+        ];
+        dbg!(perm.permute(state));
+    }
+}

@@ -31,7 +31,10 @@ fn main() {
     stdin.write(&q);
 
     // Generate the proof for the given program.
-    let mut proof = SP1Prover::prove(ELF, stdin).expect("proving failed");
+    let config = BabyBearPoseidon2::new();
+
+    let mut proof = SP1Prover::prove_with_config(ELF, stdin).expect("proving failed");
+    std::fs::write("proof.json", serde_json::to_string(&proof.proof).unwrap()).unwrap();
 
     // Read the output.
     let r = proof.stdout.read::<MyPointUnaligned>();
